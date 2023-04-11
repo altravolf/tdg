@@ -1,0 +1,104 @@
+<%- layout("layouts/mainLayout.ejs") %>
+
+
+    <section class="services pt-0 my-3 container pb-0">
+        <div class="container" data-aos="fade-up">
+            <% if(isSignedIn) { %>
+                <div class="row">
+                    <form action="/dates" method="post" class="needs-validation" novalidate>
+                        <div class="mb-2 col-md-4">
+                            <label for="date" class="form-label">Date:</label>
+                            <input type="date" name="date" id="date" class="form-control" required
+                                value="<%= currDate %>">
+                        </div>
+                        <div class="mb-4 col-md-4 text-center">
+                            <button class="btn btn-success">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <% } %>
+
+
+                    <div class="row">
+                        <div class="col-md-4 col ">
+                            <table class="table table-dark table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" colspan="2">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            YYYY-MM-DD
+                                        </td>
+                                        <td>
+                                            Created By
+                                        </td>
+                                    </tr>
+                                    <% for(let date of dates) { %>
+                                        <tr>
+                                            <td>
+                                                <a href="/dates/<%= date._id %>">
+                                                    <%= date.date %>
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <a href="/dates/<%= date._id %>">
+                                                    <%= date.admin.username.slice(0,1).toUpperCase()+
+                                                        date.admin.username.slice(1) %>
+                                                </a>
+                                                <% if(isSignedIn && isSignedIn._id.equals(date.admin._id)) { %>
+                                                    <button type="button" class="btn btn-sm btn-danger mx-1"
+                                                        data-bs-toggle="modal" data-bs-target="#a<%= date._id %>">
+                                                        <i class="fa-regular fa-trash-can"></i>
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="a<%= date._id %>" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content bg-dark">
+
+                                                                <div class="modal-body text-danger fw-bold">
+                                                                    Are you sure you want to delete it?
+                                                                </div>
+                                                                <div class="modal-footer justify-content-center">
+
+                                                                    <!-- form to delete -->
+                                                                    <form class="d-inline"
+                                                                        action="/dates/<%= date._id %>/delete?_method=DELETE"
+                                                                        method="post">
+                                                                        <button type="submit"
+                                                                            class="btn btn-success">Yes</button>
+                                                                    </form>
+                                                                    <!-- form to delete end -->
+
+                                                                    <button type="button" class="btn btn-danger"
+                                                                        data-bs-dismiss="modal">No</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Modal end -->
+
+                                                    <% } %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </section>

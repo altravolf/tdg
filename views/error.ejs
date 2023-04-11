@@ -1,0 +1,25 @@
+<%- layout("layouts/mainLayout.ejs") %>
+
+    <section class="my-4 container p-0">
+        <div class="container mt-2" data-aos="fade-up">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class=" alert alert-dark text-white" style="background-color: black;" role="alert">
+                        <div class="text-center">
+                            <h4 class="alert-heading">Error Code: <span style="color: rgb(253, 41, 41)">
+                                    <%= err.status %>
+                                </span>
+                            </h4>
+                            <hr>
+
+                            <h4 class="alert-heading fs-6"><span style="color: rgb(253, 41, 41)">
+                                    <%= err.message %>
+                                </span></h4>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

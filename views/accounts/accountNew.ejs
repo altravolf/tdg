@@ -1,0 +1,29 @@
+<%- layout("layouts/mainLayout.ejs") %>
+
+
+    <section class="services pt-0 my-4 container pb-0">
+        <div class="container" data-aos="fade-up">
+            <% if(isSignedIn) { %>
+                <div class="row text-center p-3">
+                    <div class="col-md-4 my-2">
+                        <a class="btn btn-primary" href="/dates/<%= id %>/accounts/expense">Add new expense</a>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <a class="btn btn-primary" href="/dates/<%= id %>/accounts/income">Add new income</a>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <a class="btn btn-primary" href="/dates/<%= id %>/accounts/donation">Add new donation</a>
+                    </div>
+                </div>
+                <% } %>
+
+                    <div class="p-5">
+                        <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                            <div class="p-md-5  text-center">
+                                No data is available in the daybook, so the table cannot be displayed.
+                            </div>
+                        </div>
+                    </div>
+        </div>
+
+    </section>

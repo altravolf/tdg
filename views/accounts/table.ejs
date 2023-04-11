@@ -1,0 +1,146 @@
+<%- layout("layouts/mainLayout.ejs") %>
+
+    <% if(isSignedIn) { %>
+        <section class="services my-4 container p-0">
+            <div class="container" data-aos="fade-up">
+                <div class="row text-center">
+                    <div class="col-md-4 my-2">
+                        <a class="btn btn-primary" href="/dates/<%= id %>/accounts/expense">Add new expense</a>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <a class="btn btn-primary" href="/dates/<%= id %>/accounts/income">Add new income</a>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <a class="btn btn-primary" href="/dates/<%= id %>/accounts/donation">Add new donation</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %>
+
+            <section class="services mt-2 mb-3 container p-0">
+                <div class="container" data-aos="fade-up" id="printData">
+                    <h2 class="h1 text-center">
+                        <%= date.date %>
+                    </h2>
+                    <!-- <div class="row"> -->
+                    <div id="">
+                        <div id="" class="overflow-auto">
+                            <table class="table table-dark table-hover text-center" id="">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Expense</th>
+                                        <th scope="col">Income</th>
+                                        <th scope="col">Donation</th>
+                                        <th scope="col">User</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(let account of accounts) { %>
+                                        <tr>
+                                            <th scope="row">
+                                                <%= account.title %>
+                                            </th>
+                                            <td>
+                                                <%= account.description %>
+                                            </td>
+                                            <td>
+                                                <% if(account.expense==0) { %>
+                                                    <%= "--" %>
+                                                        <% } else { %>
+                                                            <%= account.expense %>
+                                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% if(account.income==0) { %>
+                                                    <%= "--" %>
+                                                        <% } else { %>
+                                                            <%= account.income %>
+                                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% if(account.donation==0) { %>
+                                                    <%= "--" %>
+                                                        <% } else { %>
+                                                            <%= account.donation %>
+                                                                <% } %>
+                                            </td>
+
+                                            <td>
+                                                <%= account.admin.username.slice(0,1).toUpperCase()+account.admin.username.slice(1)
+                                                    %>
+                                                    <% if(isSignedIn && account.admin.equals(isSignedIn._id)){ %>
+
+                                                        <button type=" button" class="btn btn-sm btn-danger mx-1"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#a<%= account._id %>">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="a<%= account._id %>" tabindex="-1"
+                                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content bg-dark">
+
+                                                                    <div class="modal-body text-danger fw-bold">
+                                                                        Are you sure you want to delete it?
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-center">
+
+                                                                        <!-- form to delete -->
+                                                                        <form class="d-inline"
+                                                                            action="/dates/<%= id %>/accounts/<%= account._id %>?_method=DELETE"
+                                                                            method="post">
+                                                                            <button type="submit"
+                                                                                class="btn btn-success">Yes</button>
+                                                                        </form>
+                                                                        <!-- form to delete end -->
+
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-bs-dismiss="modal">No</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Modal end -->
+
+                                                        <% } %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                </tbody>
+                                <tfoot>
+                                    <td style="color: #e5e5e5;">Total</td>
+                                    <td></td>
+                                    <td>
+                                        <% let totalE=accounts.map(account=> account.expense).reduce((prev, next) =>
+                                            prev +
+                                            next);%>
+                                            <%= totalE %>
+                                    </td>
+                                    <td>
+                                        <% let totalI=accounts.map(account=> account.income).reduce((prev, next) => prev
+                                            +
+                                            next);%>
+                                            <%= totalI %>
+                                    </td>
+                                    <td>
+                                        <% let totalD=accounts.map(account=> account.donation).reduce((prev, next) =>
+                                            prev
+                                            +next);%>
+                                            <%= totalD %>
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary d-block mx-auto" id="printButton" type="submit">Print Table</button>
+            </section>

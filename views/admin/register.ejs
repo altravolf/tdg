@@ -1,0 +1,25 @@
+<%- layout("layouts/mainLayout.ejs") %>
+
+    <section class="services my-4 container p-0">
+        <div class="container" data-aos="fade-up">
+            <h2 class="h1 text-center py-4">Register</h2>
+            <form action="/register?reg=true" method="post" class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="form-floating mb-3 col-md-6 col-12">
+                        <input type="text" class="form-control" name="username" id="floatingInput"
+                            placeholder="Enter username" required minlength="3">
+                        <label for="floatingInput">&nbsp; Username</label>
+                    </div>
+                    <div class="form-floating mb-3 col-md-6 col-12">
+                        <input type="password" class="form-control" name="password" id="floatingInput"
+                            placeholder="Enter password" required>
+                        <label for="floatingInput">&nbsp; Password</label>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-success">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
